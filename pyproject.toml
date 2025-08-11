@@ -1,0 +1,17 @@
+
+[project]
+name = "motile-tracker-launcher"
+version = "0.0.1"
+readme = "README.md"
+license = { text = "BSD 3-Clause License" }
+dependencies = [
+    "PyQT5",
+    "superqt",
+    "fonticon-fontawesome6",
+]
+
+[project.entry-points."superqt.fonticon"]
+fa6s = "fonticon_fa6:FA6S"
+
+[project.scripts]
+motile_launcher = "launcher:motile_launcher"
