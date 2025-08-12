@@ -14,4 +14,4 @@ dependencies = [
 fa6s = "fonticon_fa6:FA6S"
 
 [project.scripts]
-motile_launcher = "launcher:motile_launcher"
+motile_launcher = "motile_launcher.launcher:motile_launcher"

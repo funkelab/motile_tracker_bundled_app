@@ -57,10 +57,10 @@ def get_version():
 
 
 a = Analysis(
-    ["src/launcher/launcher.py"],
+    ["src/motile_launcher/launcher.py"],
     hookspath=["src/installer_hooks"],
     hiddenimports=[
-        "launcher",
+        "motile_launcher",
     ],
     runtime_hooks=[],
     excludes=[

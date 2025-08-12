@@ -3742,7 +3742,7 @@ packages:
 - pypi: ./
   name: motile-tracker-launcher
   version: 0.0.1
-  sha256: 99f92248f8400d01ac30fb940f72c37bec4413a862b71eca23fc570a4487835c
+  sha256: e3df140ac00862627c0193a4d30982367e9512391facad50b40cabf99984bd29
   requires_dist:
   - pyqt5
   - superqt
