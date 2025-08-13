@@ -64,7 +64,7 @@ jobs:
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
             f.write(f"matrix={json.dumps(matrix)}\n")
 
-  installers:
+  create-installers:
     name: Create ${{ matrix.target-platform }} installer
     runs-on: ${{ matrix.os }}
     needs: prepare-matrix
