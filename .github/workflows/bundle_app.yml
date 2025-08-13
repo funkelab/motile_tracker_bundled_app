@@ -127,13 +127,11 @@ jobs:
           choco install -y innosetup
           echo "extension=exe" >> $GITHUB_ENV
 
-      - name: Package native app
+      - name: Prepare action env variables
         working-directory: motile-tracker-installer
         run: |
           pixi run setup
-          pwd
-          ls
-          ls src
+
           MOTILE_TRACKER_VER=$(pixi run python src/motile_launcher/launcher.py --version)
           echo "Motile Tracker version: ${MOTILE_TRACKER_VER}"
           echo "version=${MOTILE_TRACKER_VER}" >> $GITHUB_ENV
@@ -141,8 +139,11 @@ jobs:
           ARCH=$(pixi run python src/motile_launcher/launcher.py --arch)
           echo "arch-suffix=${ARCH}" >> $GITHUB_ENV
 
+      - name: Package native app
+        working-directory: motile-tracker-installer
+        run: |
           pixi run create-installer
-          echo "!!!! ENV version: ${{ env.version }}, extension ${{ env.extension }}, arch: ${{ env.arch-suffix }}"
+          echo "!!!! ENV version: ${{ env.version }}, extension: ${{ env.extension }}, arch: ${{ env.arch-suffix }}"
           mv dist/MotileTrackerInstaller.${{ env.extension }} dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
           ls dist
 
