@@ -29,7 +29,6 @@ def _configure_logging(logfile=None, verbose=False):
     return logging.getLogger()
 
 
-
 def _define_args():
     args_parser = argparse.ArgumentParser(description='Motile Tracker launcher')
 

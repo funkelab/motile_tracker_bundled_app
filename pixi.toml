@@ -15,10 +15,11 @@ scip = "*"
 
 [pypi-dependencies]
 ilpy = "*"
-motile_tracker = "*"
+motile-tracker = "*"
 motile-tracker-launcher = { path = ".", editable = true }
 
 [tasks]
+setup = { cmd = "pip install ." }
 create-app = { cmd = "echo Create native app" }
 create-installer = { cmd = "echo Package app installer" }
 

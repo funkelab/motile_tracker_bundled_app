@@ -130,15 +130,15 @@ jobs:
       - name: Package native app
         working-directory: motile-tracker-installer
         run: |
-          pixi install
+          pixi run setup
           pwd
           ls
           ls src
-          MOTILE_TRACKER_VER=$(pixi exec python src/motile_launcher/launcher.py --version)
+          MOTILE_TRACKER_VER=$(pixi run python src/motile_launcher/launcher.py --version)
           echo "Motile Tracker version: ${MOTILE_TRACKER_VER}"
           echo "version=${MOTILE_TRACKER_VER}" >> $GITHUB_ENV
 
-          ARCH=$(pixi exec python src/motile_launcher/launcher.py --arch)
+          ARCH=$(pixi run python src/motile_launcher/launcher.py --arch)
           echo "arch-suffix=${ARCH}" >> $GITHUB_ENV
 
           pixi run create-installer
