@@ -141,7 +141,9 @@ jobs:
 
       - name: Package native app
         working-directory: motile-tracker-installer
-        run: pixi run create-installer
+        run: |
+          pixi run create-installer
+          mv dist/MotileTrackerInstaller.* MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
 
       - name: Get Release
         if: inputs.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
