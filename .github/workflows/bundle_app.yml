@@ -107,32 +107,38 @@ jobs:
             "--includeRecommended"
         shell: pwsh
 
-      - name: Install app dependencies
-        working-directory: motile-tracker-installer
-        run: pixi run setup
-
       - name: Download installer app (Linux only)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y makeself
+          echo "extension=run" >> $GITHUB_ENV
 
       - name: Download installer app (macOS only)
         if: runner.os == 'macOS'
         run: |
           brew install create-dmg
+          echo "extension=app" >> $GITHUB_ENV
 
       - name: Download installer app (Windows only)
         if: runner.os == 'Windows'
         run: |
           choco install -y innosetup
+          echo "extension=exe" >> $GITHUB_ENV
 
       - name: Package native app
         working-directory: motile-tracker-installer
         run: |
+          MOTILE_TRACKER_VER=$(pixi exec python src/motile_launcher/launcher.py --version)
+          echo "Motile Tracker version: ${MOTILE_TRACKER_VER}"
+          echo "version=${MOTILE_TRACKER_VER}" >> $GITHUB_ENV
+
+          ARCH=$(pixi exec python src/motile_launcher/launcher.py --arch)
+          echo "arch-suffix=${ARCH}" >> $GITHUB_ENV
+
           pixi run create-installer
-          echo "!!!! ENV extension ${{ env.extension }}"
-          mv dist/MotileTrackerInstaller.* dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
+          echo "!!!! ENV version: ${{ env.version }}, extension ${{ env.extension }}, arch: ${{ env.arch-suffix }}"
+          mv dist/MotileTrackerInstaller.${{ env.extension }} dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
           ls dist
 
       - name: Get Release

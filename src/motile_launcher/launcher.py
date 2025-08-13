@@ -4,7 +4,6 @@ import multiprocessing
 import os
 import sys
 
-
 from motile_tracker.__main__ import main
 
 
@@ -35,11 +34,27 @@ def _define_args():
     args_parser = argparse.ArgumentParser(description='Motile Tracker launcher')
 
     args_parser.add_argument('--verbose', action='store_true', help='Enable verbose logging')
+    args_parser.add_argument('--version', action='store_true', help='Display version')
+    args_parser.add_argument('--arch', action='store_true', help='Display machine architecture')
     args_parser.add_argument('-l', '--logfile', dest='logfile', help='Log file path')
 
     args = args_parser.parse_args()
 
     return args
+
+
+def _print_version():
+    from motile_tracker import __version__ as motile_tracker_version
+
+    print(motile_tracker_version)
+
+
+def _print_arch():
+    import platform
+
+    arch = (platform.machine() or "generic").lower().replace("amd64", "x86_64")
+
+    print(arch)
 
 
 def motile_launcher():
@@ -52,7 +67,14 @@ def motile_launcher():
     global logger
     logger = _configure_logging(args.logfile, args.verbose)
 
-    sys.exit(main())
+    if args.version:
+        _print_version()
+    elif args.arch:
+        _print_arch()
+    else:
+        main()
+    
+    sys.exit()
 
 
 if __name__ == '__main__':
