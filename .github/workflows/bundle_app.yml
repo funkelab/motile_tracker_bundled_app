@@ -119,7 +119,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install create-dmg
-          echo "extension=app" >> $GITHUB_ENV
+          echo "extension=dmg" >> $GITHUB_ENV
 
       - name: Download installer app (Windows only)
         if: runner.os == 'Windows'
@@ -145,9 +145,9 @@ jobs:
         run: |
           pixi run create-installer
           echo "!!!! ENV version: ${{ env.version }}, extension: ${{ env.extension }}, arch: ${{ env.arch-suffix }}"
-          ls -l dist
           ls -l dist/MotileTrackerInstaller.${{ env.extension }}
           mv dist/MotileTrackerInstaller.${{ env.extension }} dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
+          ls -l dist
 
       - name: Get Release
         if: inputs.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
