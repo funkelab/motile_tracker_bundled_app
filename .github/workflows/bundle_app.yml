@@ -147,12 +147,7 @@ jobs:
           pixi run create-installer
           mv dist/MotileTrackerInstaller.${{ env.extension }} dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
 
-      - name: Get Release
-        if: inputs.event_name == 'release' && startsWith(github.ref, 'refs/tags/v')
-        id: get_release
-        uses: bruceadams/get-release@v1.3.2
-
-      - name: Upload Release Asset
+      - name: Upload motile-tracker installer
         if: inputs.event_name == 'release' && startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
