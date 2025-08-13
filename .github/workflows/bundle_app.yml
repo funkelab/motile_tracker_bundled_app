@@ -92,6 +92,7 @@ jobs:
 
       - name: Install build tools (Windows only)
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
           $installer = "vs_BuildTools.exe"
 
@@ -106,7 +107,6 @@ jobs:
             "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64", `
             "--add Microsoft.VisualStudio.Component.Windows10SDK.19041", `
             "--includeRecommended"
-        shell: pwsh
 
       - name: Download installer app (Linux only)
         if: runner.os == 'Linux'
@@ -128,6 +128,7 @@ jobs:
           echo "extension=exe" >> $GITHUB_ENV
 
       - name: Prepare action env variables
+        shell: bash -el {0}
         working-directory: motile-tracker-installer
         run: |
           pixi run setup
@@ -136,16 +137,17 @@ jobs:
           echo "Motile Tracker version: ${MOTILE_TRACKER_VER}"
           echo "version=${MOTILE_TRACKER_VER}" >> $GITHUB_ENV
 
-          ARCH=$(pixi run python src/motile_launcher/launcher.py --arch)
-          echo "arch-suffix=${ARCH}" >> $GITHUB_ENV
+          ARCH_SUFFIX=$(pixi run python src/motile_launcher/launcher.py --arch)
+          echo "arch-suffix=${ARCH_SUFFIX}" >> $GITHUB_ENV
 
       - name: Package native app
         working-directory: motile-tracker-installer
         run: |
           pixi run create-installer
           echo "!!!! ENV version: ${{ env.version }}, extension: ${{ env.extension }}, arch: ${{ env.arch-suffix }}"
+          ls -l dist
+          ls -l dist/MotileTrackerInstaller.${{ env.extension }}
           mv dist/MotileTrackerInstaller.${{ env.extension }} dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
-          ls dist
 
       - name: Get Release
         if: inputs.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
