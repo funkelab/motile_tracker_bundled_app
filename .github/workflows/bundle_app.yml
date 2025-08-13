@@ -79,6 +79,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          repository: funkelab/motile_tracker_bundled_app
           path: motile-tracker-installer
 
       - name: Install pixi
@@ -129,6 +130,8 @@ jobs:
       - name: Package native app
         working-directory: motile-tracker-installer
         run: |
+          pixi install
+          pwd
           ls
           ls src
           MOTILE_TRACKER_VER=$(pixi exec python src/motile_launcher/launcher.py --version)
