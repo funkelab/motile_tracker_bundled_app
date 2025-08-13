@@ -111,18 +111,6 @@ jobs:
         working-directory: motile-tracker-installer
         run: pixi run setup
 
-      - name: Build the PyPi package (Linux only)
-        working-directory: motile-tracker-installer
-        if: runner.os == 'Linux'
-        run: pixi run build
-
-      - name: Publish to PyPi (Linux only)
-        uses: pypa/gh-action-pypi-publish@release/v1
-        if: runner.os == 'Linux'
-        with:
-          packages-dir: motile-tracker-installer/dist
-          password: ${{ secrets.PYPI_API_TOKEN }}
-
       - name: Download installer app (Linux only)
         if: runner.os == 'Linux'
         run: |
