@@ -151,5 +151,5 @@ jobs:
         if: inputs.event_name == 'release' && startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/motile-tracker-installer/dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
+          files: motile-tracker-installer/dist/MotileTrackerInstaller-${{ env.version }}-${{ runner.os }}-${{ env.arch-suffix }}.${{ env.extension }}
           repository: funkelab/motile_tracker
