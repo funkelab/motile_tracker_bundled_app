@@ -15,7 +15,6 @@ scip = "*"
 
 [pypi-dependencies]
 ilpy = "*"
-motile-tracker = "*"
 motile-tracker-launcher = { path = ".", editable = true }
 
 [tasks]

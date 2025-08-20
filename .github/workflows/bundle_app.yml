@@ -133,6 +133,7 @@ jobs:
         working-directory: motile-tracker-installer
         run: |
           pixi run setup
+          pixi update motile-tracker
 
           MOTILE_TRACKER_VER=$(pixi run python src/motile_launcher/launcher.py --version)
           echo "Motile Tracker version: ${MOTILE_TRACKER_VER}"

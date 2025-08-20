@@ -5,6 +5,7 @@ version = "0.0.1"
 readme = "README.md"
 license = { text = "BSD 3-Clause License" }
 dependencies = [
+    "motile-tracker",
     "PyQT5",
     "superqt",
     "fonticon-fontawesome6",
