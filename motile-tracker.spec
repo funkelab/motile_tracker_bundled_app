@@ -97,9 +97,14 @@ exe = EXE(
     entitlements_file=None,
 )
 
+if sys.platform == 'linux':
+    binaries = [x for x in a.binaries if 'libexpat.so.1' not in x[0]]
+else:
+    binaries = a.binaries
+
 coll = COLLECT(
     exe,
-    a.binaries,
+    binaries,
     a.zipfiles,
     a.datas,
     upx=UPX,
