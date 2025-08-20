@@ -43,7 +43,7 @@ jobs:
           import json
           elements = [
             {
-              "os": "ubuntu-20.04",
+              "os": "ubuntu-22.04",
               "target-platform": "linux-64",
             },
             {
